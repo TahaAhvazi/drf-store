@@ -7,6 +7,7 @@ class Promotion(models.Model):
     discount = models.FloatField()
 class Collection(models.Model):
     title = models.CharField(max_length=255)
+    featured_product = models.ForeignKey('Product' , on_delete=models.SET_NULL, null=True, related_name='+')
 class Product(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
@@ -39,9 +40,9 @@ class Order(models.Model):
     PEYMENT_STATUS_PENDING= 'P'
     PEYMENT_STATUS_FAILD = 'F'
     PEYMENT_STATUS_CHOICES = [
-        (PEYMENT_STATUS_COMPLETE, 'Complete')
-        (PEYMENT_STATUS_PENDING, 'Pending')
-        (PEYMENT_STATUS_FAILD, 'Faild')
+        (PEYMENT_STATUS_COMPLETE, 'Complete'),
+        (PEYMENT_STATUS_PENDING, 'Pending'),
+        (PEYMENT_STATUS_FAILD, 'Faild'),
     ]
     placed_at = models.DateTimeField(auto_now_add=True)
     payment_status = models.CharField(max_length=1, choices=PEYMENT_STATUS_CHOICES, default= PEYMENT_STATUS_PENDING)
